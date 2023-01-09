@@ -28,13 +28,16 @@ function onFormInput(event) {
 }
 
 function populateInput() {
-    const savedData = localStorage.getItem(KEY_STORAGE);
-    const parsedData = JSON.parse(savedData);
+    let savedData = localStorage.getItem(KEY_STORAGE);
 
-    if (parsedData) {
-        form.elements.email.value = parsedData.email;
-        form.elements.message.value = parsedData.message;
-        console.log(parsedData);
+    if (savedData) {
+        savedData = JSON.parse(savedData);
+        Object.entries(savedData).forEach(([name, value]) => {
+            form.elements[name].value = value;
+        })
     }
+
+    console.log(savedData);
+
 }
 
