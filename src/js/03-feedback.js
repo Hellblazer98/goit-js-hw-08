@@ -31,10 +31,15 @@ function populateInput() {
     let savedData = localStorage.getItem(KEY_STORAGE);
 
     if (savedData) {
+        try {
         savedData = JSON.parse(savedData);
         Object.entries(savedData).forEach(([name, value]) => {
             form.elements[name].value = value;
         })
+        } catch (err) {
+            console.error('Error: invalid saved form state in LocalStorage.' + KEY_STORAGE);
+            console.error(err);
+        }
     }
 
     console.log(savedData);
